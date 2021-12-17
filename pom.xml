@@ -135,4 +135,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Moacir da Roza Flores Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/moacirrf/nb-java-decompiler</url>
+        </repository>
+    </distributionManagement>
+
 </project>
