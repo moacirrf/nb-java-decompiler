@@ -8,9 +8,6 @@ This a very simple plugin, with only basic features, if you have some tips or wa
  
 ## Screenshots
 
-![NetbeansDecompileFoto1](https://user-images.githubusercontent.com/950706/146475550-550d6f16-33ee-4775-9c52-3063d752677e.png)
+![NetbeansDecompileFoto11](https://user-images.githubusercontent.com/950706/146479624-4b1ce1a5-b08f-4358-9b0f-e7895d4a8a0d.png) ![NetbeansDecompileFoto12](https://user-images.githubusercontent.com/950706/146479846-9156fbdd-6906-4203-a08e-a710ece047c5.png)
 
-![NetbeansDecompileFoto2](https://user-images.githubusercontent.com/950706/146476546-7601b55a-d473-4e01-98b1-590a94969a35.png)
-
-![NetbeansDecompileFoto3](https://user-images.githubusercontent.com/950706/146476600-5c05e6f8-d9a9-40dc-9073-21f58dffeb8a.png)
-
+![NetbeansDecompileFoto13](https://user-images.githubusercontent.com/950706/146479949-0241a1bc-60cc-4fe9-a2e0-d4f93e0b0e03.png)
