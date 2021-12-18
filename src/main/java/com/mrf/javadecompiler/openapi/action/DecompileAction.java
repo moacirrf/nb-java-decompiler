@@ -39,11 +39,6 @@ import org.openide.util.NbBundle.Messages;
   iconBase = "com/mrf/javadecompiler/openapi/jd_icon_16.png",
   displayName = "#CTL_DecompileAction"
 )
-//@ActionReference(path = "Editors/text/x-java/Popup", position = 400)
-//@ActionReferences(value = {
-//    @ActionReference(path = "Editors/Popup", position = 2950),
-//    @ActionReference(path = "UI/ToolActions", position = 2950)
-//})
 @ActionReferences(value = {
     @ActionReference(path = "Editors/Popup", position = 1425),
     @ActionReference(path = "UI/ToolActions", position = 2950)
