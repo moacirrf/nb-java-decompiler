@@ -12,6 +12,9 @@
                 <artifactId>nbm-maven-plugin</artifactId>
                 <version>4.5</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
