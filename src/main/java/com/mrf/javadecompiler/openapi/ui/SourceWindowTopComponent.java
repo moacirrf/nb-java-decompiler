@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 moacirrf
+ * Copyright (C) 2021 Moacir da Roza Flores <moacirrf@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,11 +46,17 @@ import org.openide.util.NbBundle.Messages;
 @Messages({
     "CTL_SourceWindowAction=Java Decompiler"
 })
+@Deprecated
+/**
+ * Actualy not used, maybe will be used again on the future.
+ * 
+ */
 public final class SourceWindowTopComponent extends TopComponent {
-
+    
     public SourceWindowTopComponent() {
         initComponents();
         initEditorPane();
+        
     }
 
     /**

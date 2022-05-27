@@ -5,8 +5,8 @@ Java Decompiler for Apache Netbeans, it is based on [jd-core](https://github.com
 ## Description
 This a very simple plugin, with only basic features, if you have some tips or want to help, make a fork and open a pull-request.
  
- - Apache Netbeans 9+
- - JDK 8+
+ - Apache Netbeans 13
+ - JDK 11+
  
 ## Screenshots
 

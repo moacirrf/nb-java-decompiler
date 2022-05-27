@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 moacirrf
+ * Copyright (C) 2021 Moacir da Roza Flores <moacirrf@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,28 +16,36 @@
  */
 package com.mrf.javadecompiler.openapi.action;
 
+import static com.machinezoo.noexception.Exceptions.wrap;
+import static com.mrf.javadecompiler.constants.Constants.HEADER_COMMENT;
 import static java.util.Objects.nonNull;
-import com.mrf.javadecompiler.builder.SourceWindowBuilder;
+import static com.mrf.javadecompiler.constants.Constants.TEMP_DIR_PLUGIN;
 import com.mrf.javadecompiler.decompiler.Decompiler;
+import static com.mrf.javadecompiler.exception.ExceptionHandler.handleException;
 import com.mrf.javadecompiler.factory.DecompilerFactory;
 import com.mrf.javadecompiler.validator.FileValidator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.netbeans.api.java.source.UiUtils;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
-  category = "Tools",
-  id = "com.mrf.javadecompiler.openapi.DecompileAction"
+        category = "Tools",
+        id = "com.mrf.javadecompiler.openapi.DecompileAction"
 )
 @ActionRegistration(
-  iconBase = "com/mrf/javadecompiler/openapi/jd_icon_16.png",
-  displayName = "#CTL_DecompileAction"
+        iconBase = "com/mrf/javadecompiler/openapi/jd_icon_16.png",
+        displayName = "#CTL_DecompileAction"
 )
 @ActionReferences(value = {
     @ActionReference(path = "Editors/Popup", position = 1425),
@@ -47,9 +55,15 @@ import org.openide.util.NbBundle.Messages;
 public final class DecompileAction implements ActionListener {
 
     private final DataObject context;
+    private final Path decompilerDir;
 
     public DecompileAction(DataObject context) {
         this.context = context;
+        this.decompilerDir = Paths.get(TEMP_DIR_PLUGIN);
+        if (!Files.exists(decompilerDir)) {
+            wrap(e -> handleException(e))
+                    .run(() -> Files.createDirectory(decompilerDir));
+        }
     }
 
     @Override
@@ -57,11 +71,22 @@ public final class DecompileAction implements ActionListener {
         FileObject file = context.getPrimaryFile();
         if (FileValidator.validate(file)) {
             Decompiler<String> decompiler = DecompilerFactory.create();
-            String decompiled = decompiler.decompile(file);
+            writeToNewClass(file, decompiler.decompile(file));
+        }
+    }
 
-            if (nonNull(decompiled) && !decompiled.isEmpty()) {
-                SourceWindowBuilder.build(file, decompiled).open();
-            }
+    private void writeToNewClass(FileObject file, String decompiled) {
+        if (nonNull(decompiled) && !decompiled.isEmpty()) {
+            wrap(e -> handleException(e)).run(() -> {
+                Path newFile = Path.of(decompilerDir.toString(), file.getName().concat(".java"));
+                if (Files.exists(newFile)) {
+                    Files.delete(newFile);
+                }
+                Files.write(newFile, HEADER_COMMENT.concat(decompiled).getBytes());
+                newFile.toFile().setReadOnly();
+                FileObject newFileObject = FileUtil.createData(newFile.toFile());
+                UiUtils.open(newFileObject, 1);
+            });
         }
     }
 }

@@ -16,12 +16,20 @@
  */
 package com.mrf.javadecompiler.constants;
 
+import static java.lang.System.getProperty;
+
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
 public final class Constants {
 
+    public static final String HEADER_COMMENT = "//\n"
+            + "// Source code recreated by Apache Netbeans\n"
+            + "// (powered by Java Decompiler http://java-decompiler.github.io )\n"
+            + "//\n";
+
+    public static final String TEMP_DIR_PLUGIN = getProperty("java.io.tmpdir") + "/nb_java_decompiler";
     public static final String CLASSFILE_BINARY_NAME = "classfile-binaryName";
     public static final String CLASSFILE_ROOT = "classfile-root";
     public static final String CLASS_EXT = ".class";

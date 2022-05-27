@@ -24,10 +24,6 @@ import java.util.List;
 import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileObject;
 
-/**
- *
- * @author Moacir da Roza Flores <moacirrf@gmail.com>
- */
 public final class FileValidator {
 
     private static final String INVALID_FILE = "Invalid file.";
