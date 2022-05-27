@@ -21,6 +21,7 @@ import static com.mrf.javadecompiler.constants.Constants.CLASSFILE_ROOT;
 import static com.mrf.javadecompiler.constants.Constants.CLASS_EXT;
 import static com.mrf.javadecompiler.constants.Constants.EXCLAM;
 import static com.mrf.javadecompiler.constants.Constants.FILE;
+import static com.mrf.javadecompiler.constants.Constants.HEADER_COMMENT;
 import static com.mrf.javadecompiler.constants.Constants.JAR;
 import static com.mrf.javadecompiler.exception.ExceptionHandler.handleException;
 import static java.io.File.separator;
@@ -37,16 +38,11 @@ import org.openide.filesystems.FileSystem;
  */
 public final class SourceWindowBuilder {
 
-    public static final String COMMENT = "//\n"
-      + "// Source code recreated by Apache Netbeans\n"
-      + "// (powered by Java Decompiler http://java-decompiler.github.io )\n"
-      + "//\n";
-
     public static SourceWindowTopComponent build(FileObject file, String decompiledSource) {
         SourceWindowTopComponent window = new SourceWindowTopComponent();
         window.setName(getName(file));
         window.setToolTipText(getTooltip(file));
-        window.setDecompiledSource(COMMENT + decompiledSource);
+        window.setDecompiledSource(HEADER_COMMENT + decompiledSource);
         return window;
     }
 
