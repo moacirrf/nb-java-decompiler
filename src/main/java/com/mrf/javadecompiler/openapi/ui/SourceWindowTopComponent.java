@@ -46,6 +46,11 @@ import org.openide.util.NbBundle.Messages;
 @Messages({
     "CTL_SourceWindowAction=Java Decompiler"
 })
+@Deprecated
+/**
+ * Actualy not used, maybe will be used again on the future.
+ * 
+ */
 public final class SourceWindowTopComponent extends TopComponent {
     
     public SourceWindowTopComponent() {
