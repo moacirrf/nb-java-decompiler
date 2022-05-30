@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.openapi.ui;
+package com.mrf.javadecompiler.openide.ui;
 
 import javax.swing.Action;
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -47,9 +47,12 @@ import org.openide.util.NbBundle.Messages;
     "CTL_SourceWindowAction=Java Decompiler"
 })
 @Deprecated
+
 /**
  * Actualy not used, maybe will be used again on the future.
- * 
+ * Deprecated until we decide if we gonna still use Internal Editor to show
+ * decompiled classes or will use a custom window.
+ * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
 public final class SourceWindowTopComponent extends TopComponent {
     
