@@ -1,4 +1,4 @@
-Java Decompiler for Netbeans
+Java Decompiler for Netbeans ![master](https://github.com/moacirrf/nb-java-decompiler/actions/workflows/maven-publish.yml/badge.svg)
 =====================================
 Java Decompiler for Apache Netbeans, it is based on [jd-core](https://github.com/java-decompiler/jd-core), same core of [jd-gui](http://java-decompiler.github.io).
 
