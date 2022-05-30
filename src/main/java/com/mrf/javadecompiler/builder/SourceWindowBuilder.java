@@ -27,15 +27,18 @@ import static com.mrf.javadecompiler.exception.ExceptionHandler.handleException;
 import static java.io.File.separator;
 import static java.io.File.separatorChar;
 import static java.util.Objects.nonNull;
-import com.mrf.javadecompiler.openapi.ui.SourceWindowTopComponent;
+import com.mrf.javadecompiler.openide.ui.SourceWindowTopComponent;
 import java.net.URL;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileSystem;
 
 /**
- *
+ * Actualy not used, maybe will be used again on the future.
+ * Deprecated until we decide if we gonna still use Internal Editor to show
+ * decompiled classes or will use a custom window.
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
+@Deprecated
 public final class SourceWindowBuilder {
 
     public static SourceWindowTopComponent build(FileObject file, String decompiledSource) {

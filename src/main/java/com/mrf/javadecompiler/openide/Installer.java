@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.openapi;
+package com.mrf.javadecompiler.openide;
 
 import com.machinezoo.noexception.Exceptions;
 import com.mrf.javadecompiler.constants.Constants;
