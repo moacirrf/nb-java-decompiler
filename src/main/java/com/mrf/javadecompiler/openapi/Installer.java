@@ -21,8 +21,9 @@ import com.mrf.javadecompiler.constants.Constants;
 import com.mrf.javadecompiler.exception.ExceptionHandler;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.openide.modules.ModuleInstall;
 
-public class Installer extends org.openide.modules.ModuleInstall {
+public class Installer extends ModuleInstall {
 
     @Override
     public boolean closing() {
