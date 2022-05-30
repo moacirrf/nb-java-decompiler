@@ -13,9 +13,12 @@
                 <version>4.5</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <author>Moacir da Roza Flores-moacirrf@gmail.com</author>
+                    <licenseName>GNU GENERAL PUBLIC LICENSE 3.0</licenseName>
+                    <licenseFile>LICENSE</licenseFile>
                     <publicPackages>
                         <publicPackage>com.mrf.javadecompiler</publicPackage>
-                    </publicPackages>
+                    </publicPackages>                  
                     <netbeansInstallation>/home/PROGRAMAS/instalados/ides/netbeans/</netbeansInstallation>
                     <!--                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation>-->
                 </configuration>
