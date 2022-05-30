@@ -16,11 +16,9 @@
                     <author>Moacir da Roza Flores-moacirrf@gmail.com</author>
                     <licenseName>GNU GENERAL PUBLIC LICENSE 3.0</licenseName>
                     <licenseFile>LICENSE</licenseFile>
-                    <publicPackages>
-                        <publicPackage>com.mrf.javadecompiler</publicPackage>
-                    </publicPackages>                  
-                    <netbeansInstallation>/home/PROGRAMAS/instalados/ides/netbeans/</netbeansInstallation>
-                    <!--                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation>-->
+                    <!--  Path of Netbeans instalation.
+                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation>
+                                -->
                 </configuration>
             </plugin>
             <plugin>
@@ -62,12 +60,6 @@
         <!-- Netbeans modules -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
-            <artifactId>org-netbeans-api-annotations-common</artifactId>
-            <version>RELEASE130</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-filesystems</artifactId>
             <version>RELEASE130</version>
         </dependency>
@@ -95,19 +87,7 @@
             <artifactId>org-openide-windows</artifactId>
             <version>RELEASE130</version>
         </dependency>
-        
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util-ui</artifactId>
-            <version>RELEASE130</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-util-lookup</artifactId>
-            <version>RELEASE130</version>
-        </dependency>
-        
+                  
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-netbeans-modules-settings</artifactId>
@@ -117,12 +97,6 @@
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-text</artifactId>
-            <version>RELEASE130</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.netbeans.api</groupId>
-            <artifactId>org-openide-explorer</artifactId>
             <version>RELEASE130</version>
         </dependency>
         
@@ -138,31 +112,15 @@
             <id>central</id>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
-        
+               
+        <!-- Repository of JD-Core -->
         <repository>
             <id>JCenter</id>
             <url>https://jcenter.bintray.com/</url>
         </repository>
-        
-        <repository>
-            <id>apache.snapshots</id>
-            <name>Repository hosting NetBeans modules</name>
-            <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
+
     </repositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Moacir da Roza Flores Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/moacirrf/nb-java-decompiler</url>
-        </repository>
-    </distributionManagement>
-
 </project>
