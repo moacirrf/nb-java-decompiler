@@ -16,13 +16,12 @@
  */
 package com.mrf.javadecompiler.decompiler;
 
-import org.openide.filesystems.FileObject;
 
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
-public interface Decompiler<T> {
+public interface Decompiler<T,P> {
 
-    public T decompile(FileObject input);
+    public T decompile(P input);
 }

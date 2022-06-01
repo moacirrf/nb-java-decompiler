@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.decompiler;
+package com.mrf.javadecompiler.decompiler.jdcore;
 
+import com.mrf.javadecompiler.filesystems.FileSystemHelper;
 import java.io.IOException;
+import static java.util.Objects.nonNull;
 import org.jd.core.v1.api.loader.Loader;
 import org.jd.core.v1.api.loader.LoaderException;
 import org.openide.filesystems.FileObject;
-import org.openide.filesystems.FileSystem;
 
 /**
  *
@@ -28,25 +29,29 @@ import org.openide.filesystems.FileSystem;
  */
 public class LoaderImpl implements Loader {
 
-    private final FileSystem fileSystem;
-
-    public LoaderImpl(FileSystem fileSystem) {
-        this.fileSystem = fileSystem;
+    private final FileSystemHelper input;
+    
+    public LoaderImpl(FileSystemHelper input) {
+        this.input = input;
     }
 
     @Override
     public boolean canLoad(String internalName) {
-        FileObject fileObject = fileSystem.findResource(internalName);
-        if (fileObject == null) {
-            return false;
-        }
-        return fileObject.canRead();
+        FileObject file = input.findResource(internalName);
+        if (nonNull(file)) {
+            return file.canRead();
+        }        
+        return false;
     }
 
     @Override
     public byte[] load(String internalName) throws LoaderException {
         try {
-            return fileSystem.findResource(internalName).asBytes();
+            FileObject file = input.findResource(internalName);
+            if (nonNull(file)) {
+                return file.asBytes();
+            }
+            return null;
         } catch (IOException ex) {
             throw new LoaderException(ex);
         }

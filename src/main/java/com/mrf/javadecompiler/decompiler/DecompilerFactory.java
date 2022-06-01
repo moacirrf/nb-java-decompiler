@@ -14,10 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.factory;
-
-import com.mrf.javadecompiler.decompiler.Decompiler;
-import com.mrf.javadecompiler.decompiler.DecompilerClassImpl;
+package com.mrf.javadecompiler.decompiler;
 
 /**
  *
