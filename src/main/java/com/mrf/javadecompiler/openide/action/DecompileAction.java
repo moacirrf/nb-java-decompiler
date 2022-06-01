@@ -17,18 +17,16 @@
 package com.mrf.javadecompiler.openide.action;
 
 import static com.machinezoo.noexception.Exceptions.wrap;
-import static com.mrf.javadecompiler.constants.Constants.HEADER_COMMENT;
 import static java.util.Objects.nonNull;
-import static com.mrf.javadecompiler.constants.Constants.TEMP_DIR_PLUGIN;
 import com.mrf.javadecompiler.decompiler.Decompiler;
-import static com.mrf.javadecompiler.exception.ExceptionHandler.handleException;
-import com.mrf.javadecompiler.factory.DecompilerFactory;
+import com.mrf.javadecompiler.decompiler.DecompilerFactory;
+import com.mrf.javadecompiler.exception.ExceptionHandler;
+import com.mrf.javadecompiler.filesystems.TempDir;
 import com.mrf.javadecompiler.validator.FileValidator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import org.netbeans.api.java.source.UiUtils;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
@@ -59,32 +57,30 @@ public final class DecompileAction implements ActionListener {
 
     public DecompileAction(DataObject context) {
         this.context = context;
-        this.decompilerDir = Paths.get(TEMP_DIR_PLUGIN);
-        if (!Files.exists(decompilerDir)) {
-            wrap(e -> handleException(e))
-                    .run(() -> Files.createDirectory(decompilerDir));
-        }
+        this.decompilerDir = TempDir.getTempDir();
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
         FileObject file = context.getPrimaryFile();
         if (FileValidator.validate(file)) {
-            Decompiler<String> decompiler = DecompilerFactory.create();
+            Decompiler<String, FileObject> decompiler = DecompilerFactory.create();
             writeToNewClass(file, decompiler.decompile(file));
         }
     }
 
     private void writeToNewClass(FileObject file, String decompiled) {
         if (nonNull(decompiled) && !decompiled.isEmpty()) {
-            wrap(e -> handleException(e)).run(() -> {
+            wrap(ExceptionHandler::handleException).run(() -> {
                 Path newFile = Path.of(decompilerDir.toString(), file.getName().concat(".java"));
                 if (Files.exists(newFile)) {
                     Files.delete(newFile);
                 }
-                Files.write(newFile, HEADER_COMMENT.concat(decompiled).getBytes());
+                Files.write(newFile, decompiled.getBytes());
                 newFile.toFile().setReadOnly();
+
                 FileObject newFileObject = FileUtil.createData(newFile.toFile());
+                newFileObject.setAttribute("disable-java-errors", true);
                 UiUtils.open(newFileObject, 1);
             });
         }

@@ -16,32 +16,16 @@
  */
 package com.mrf.javadecompiler.openide;
 
-import com.machinezoo.noexception.Exceptions;
-import com.mrf.javadecompiler.constants.Constants;
-import com.mrf.javadecompiler.exception.ExceptionHandler;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import com.mrf.javadecompiler.filesystems.TempDir;
+
 import org.openide.modules.ModuleInstall;
 
 public class Installer extends ModuleInstall {
 
     @Override
     public boolean closing() {
-        this.clearTempFolder(Path.of(Constants.TEMP_DIR_PLUGIN));
+        TempDir.removeTempDir();
         return super.closing();
-    }
-    /**
-     * Will remove recursivelly all decompiled classes, when close Netbeans.
-     * 
-     * @param path 
-     */
-    private void clearTempFolder(Path path) {
-        Exceptions.wrap(ex -> ExceptionHandler.handleException(ex)).run(() -> {
-            if (Files.isDirectory(path) && Files.list(path).count() > 0) {
-                Files.list(path).forEach(it -> this.clearTempFolder(it));
-            }
-            Files.deleteIfExists(path);
-        });
     }
 
 }

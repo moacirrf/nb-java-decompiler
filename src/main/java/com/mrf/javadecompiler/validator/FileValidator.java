@@ -16,7 +16,8 @@
  */
 package com.mrf.javadecompiler.validator;
 
-import static com.mrf.javadecompiler.constants.Constants.CLASSFILE_ROOT;
+import static com.mrf.javadecompiler.filesystems.FileSystemHelper.CLASSFILE_BINARY_NAME;
+import static com.mrf.javadecompiler.filesystems.FileSystemHelper.CLASSFILE_ROOT;
 import static java.util.Arrays.asList;
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.joining;
@@ -41,7 +42,7 @@ public final class FileValidator {
 
     private static boolean isValidExtensions(FileObject file) {
 
-        if (!ACCEPTED_EXTENSION.contains(file.getExt().toLowerCase()) && !isInsideJar(file)) {
+        if (!ACCEPTED_EXTENSION.contains(file.getExt().toLowerCase()) && !isClassOriginFromJar(file)) {
             String extension = ACCEPTED_EXTENSION.stream().collect(joining(", "));
             StatusDisplayer.getDefault().setStatusText(String.format(ACCEPTED_FILES, extension));
             return false;
@@ -49,8 +50,17 @@ public final class FileValidator {
         return true;
     }
 
-    private static boolean isInsideJar(FileObject file) {
-        return nonNull(file.getAttribute(CLASSFILE_ROOT));
+    /**
+     * When a class file is opened on netbeans editor, the default action is
+     * show a JAVAP output, but the address of a original class file and jar is
+     * stored on attribute.
+     *
+     * @param file
+     * @return
+     */
+    private static boolean isClassOriginFromJar(FileObject file) {
+        return nonNull(file.getAttribute(CLASSFILE_ROOT))
+                && nonNull(file.getAttribute(CLASSFILE_BINARY_NAME));
     }
 
     private FileValidator() {
