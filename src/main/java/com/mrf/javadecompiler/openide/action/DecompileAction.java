@@ -39,10 +39,9 @@ import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "Tools",
-        id = "com.mrf.javadecompiler.openapi.DecompileAction"
+        id = "com.mrf.javadecompiler.openide.DecompileAction"
 )
 @ActionRegistration(
-        iconBase = "com/mrf/javadecompiler/openapi/jd_icon_16.png",
         displayName = "#CTL_DecompileAction"
 )
 @ActionReferences(value = {
