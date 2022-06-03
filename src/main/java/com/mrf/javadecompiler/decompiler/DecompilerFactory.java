@@ -16,6 +16,8 @@
  */
 package com.mrf.javadecompiler.decompiler;
 
+import com.mrf.javadecompiler.decompiler.cfr.DecompilerClassImpl;
+
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
