@@ -81,7 +81,7 @@ public class FileSystemHelperTest {
         FileSystemHelper instance = FileSystemHelper.of(new JarFileSystem(jar.toFile()).findResource("teste.class"));
         
         FileObject result = instance.findResource("teste.class");
-        assertNull(result);
+        assertNotNull(result);
     }
 
     private void createJarFile(Path fileName) throws IOException {
