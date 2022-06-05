@@ -20,18 +20,12 @@ import com.mrf.javadecompiler.decompiler.Decompiler;
 import static com.machinezoo.noexception.Exceptions.wrap;
 import com.mrf.javadecompiler.exception.ExceptionHandler;
 import com.mrf.javadecompiler.filesystems.FileSystemHelper;
-import static com.mrf.javadecompiler.filesystems.TempDir.getTempDir;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Map;
 import org.benf.cfr.reader.Main;
 import org.benf.cfr.reader.apiunreleased.ClassFileSource2;
-import org.benf.cfr.reader.state.ClassFileSourceImpl;
 import org.benf.cfr.reader.state.DCCommonState;
-import org.benf.cfr.reader.util.AnalysisType;
 import org.benf.cfr.reader.util.getopt.Options;
 import org.benf.cfr.reader.util.getopt.OptionsImpl;
-import org.benf.cfr.reader.util.output.DumperFactory;
 import org.openide.filesystems.FileObject;
 
 /**
@@ -40,55 +34,28 @@ import org.openide.filesystems.FileObject;
  */
 public final class DecompilerClassImpl implements Decompiler<String, FileObject> {
 
-    public static final String HEADER_COMMENT = "// Source code recreated by Apache Netbeans\n";
+    public static final String HEADER_COMMENT = "// Source code recreated by Apache Netbeans (NB Java Decompiler) \n";
 
     private final Options options;
-    private final ClassFileSource2 classFileSource;
-    private final DCCommonState dcCommonState;
 
     public DecompilerClassImpl() {
-        options = new OptionsImpl(Map.of("comments", "false"));
-        classFileSource = new ClassFileSourceImpl(options);
-        classFileSource.informAnalysisRelativePathDetail(null, null);
-        dcCommonState = new DCCommonState(options, classFileSource);
+        options = new OptionsImpl(Map.of("comments", "false", "innerclasses", "true"));
     }
 
     @Override
     public String decompile(FileObject file) {
         return wrap(ExceptionHandler::handleException).get(() -> {
 
+            String className = FileSystemHelper.extractName(file);
             FileSystemHelper helper = FileSystemHelper.of(file);
-            FileObject fileObject = helper.findResource(FileSystemHelper.extractName(file));
 
-            //copy class file to temp before decompile
-            Path classFile = getTempDir().resolve(fileObject.getName() + fileObject.getExt());
-            Files.write(classFile, fileObject.asBytes());
+            ClassFileSource2 classFileSource = new NetbeansClassFileSourceImpl(helper);
 
-            String decompiledClass = HEADER_COMMENT + decompile(classFile.toString());
-            
-            //remove class file after decompile
-            Files.delete(classFile);
+            StringBuilder out = new StringBuilder(HEADER_COMMENT);
+            Main.doClass(new DCCommonState(options, classFileSource), className, false, new PluginDumperFactory(out, options));
 
-            return decompiledClass;
+            return out.toString();
         });
-    }
-
-    private String decompile(String classPath) {
-
-        StringBuilder out = new StringBuilder();
-
-        DumperFactory dumperFactory = new PluginDumperFactory(out, options);
-
-        AnalysisType type = options.getOption(OptionsImpl.ANALYSE_AS);
-
-        if (type == null || type == AnalysisType.DETECT) {
-            type = dcCommonState.detectClsJar(classPath);
-        }
-
-        if (type == AnalysisType.CLASS) {
-            Main.doClass(dcCommonState, classPath, false, dumperFactory);
-        }
-        return out.toString();
     }
 
 }

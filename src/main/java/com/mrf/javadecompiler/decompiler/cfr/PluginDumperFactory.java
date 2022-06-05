@@ -32,6 +32,9 @@ import org.benf.cfr.reader.util.output.ProgressDumperNop;
 import org.benf.cfr.reader.util.output.StringStreamDumper;
 import org.benf.cfr.reader.util.output.SummaryDumper;
 
+/*
+* Class entirely copied from cfr.jar 
+ */
 public class PluginDumperFactory implements DumperFactory {
 
     private final IllegalIdentifierDump illegalIdentifierDump = new IllegalIdentifierDump.Nop();
