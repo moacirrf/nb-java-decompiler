@@ -14,14 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.decompiler;
+package com.mrf.javadecompiler.decompiler.cfr;
 
-import com.mrf.javadecompiler.decompiler.jdcore.PrinterImpl;
-import com.mrf.javadecompiler.decompiler.jdcore.LoaderImpl;
+import com.mrf.javadecompiler.decompiler.Decompiler;
 import static com.machinezoo.noexception.Exceptions.wrap;
 import com.mrf.javadecompiler.exception.ExceptionHandler;
 import com.mrf.javadecompiler.filesystems.FileSystemHelper;
-import org.jd.core.v1.ClassFileToJavaSourceDecompiler;
+import java.util.Map;
+import org.benf.cfr.reader.Main;
+import org.benf.cfr.reader.apiunreleased.ClassFileSource2;
+import org.benf.cfr.reader.state.DCCommonState;
+import org.benf.cfr.reader.util.getopt.Options;
+import org.benf.cfr.reader.util.getopt.OptionsImpl;
 import org.openide.filesystems.FileObject;
 
 /**
@@ -30,21 +34,27 @@ import org.openide.filesystems.FileObject;
  */
 public final class DecompilerClassImpl implements Decompiler<String, FileObject> {
 
-    public static final String HEADER_COMMENT = "//\n"
-            + "// Source code recreated by Apache Netbeans\n"
-            + "// (powered by Java Decompiler http://java-decompiler.github.io )\n"
-            + "//\n";
+    public static final String HEADER_COMMENT = "// Source code recreated by Apache Netbeans (NB Java Decompiler) \n";
+
+    private final Options options;
+
+    public DecompilerClassImpl() {
+        options = new OptionsImpl(Map.of("comments", "false", "innerclasses", "true"));
+    }
 
     @Override
     public String decompile(FileObject file) {
         return wrap(ExceptionHandler::handleException).get(() -> {
-            LoaderImpl loader = new LoaderImpl(FileSystemHelper.of(file));
-            PrinterImpl printer = new PrinterImpl();
 
-            ClassFileToJavaSourceDecompiler decompiler = new ClassFileToJavaSourceDecompiler();
-            decompiler.decompile(loader, printer, FileSystemHelper.extractName(file));
+            String className = FileSystemHelper.extractName(file);
+            FileSystemHelper helper = FileSystemHelper.of(file);
 
-            return HEADER_COMMENT + printer.toString();
+            ClassFileSource2 classFileSource = new NetbeansClassFileSourceImpl(helper);
+
+            StringBuilder out = new StringBuilder(HEADER_COMMENT);
+            Main.doClass(new DCCommonState(options, classFileSource), className, false, new PluginDumperFactory(out, options));
+
+            return out.toString();
         });
     }
 
