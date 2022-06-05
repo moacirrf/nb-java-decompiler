@@ -138,6 +138,12 @@
             <artifactId>org-openide-modules</artifactId>
             <version>RELEASE130</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.netbeans.api</groupId>
+            <artifactId>org-netbeans-api-java-classpath</artifactId>
+            <version>RELEASE130</version>
+        </dependency>
     </dependencies>
     
     <repositories>

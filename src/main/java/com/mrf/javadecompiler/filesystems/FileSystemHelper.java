@@ -22,6 +22,8 @@ import static java.io.File.separatorChar;
 import java.net.URL;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import org.netbeans.api.java.classpath.ClassPath;
+import org.netbeans.api.java.source.ClasspathInfo;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileStateInvalidException;
 import org.openide.filesystems.FileUtil;
@@ -64,9 +66,12 @@ public final class FileSystemHelper {
 
     private FileObject file;
 
+    private ClassPath classpath;
+
     public static FileSystemHelper of(FileObject fileObject) {
         FileSystemHelper input = new FileSystemHelper();
         input.file = fileObject;
+        input.classpath = ClassPath.getClassPath(fileObject, ClassPath.EXECUTE);
         return input;
     }
 
@@ -75,11 +80,16 @@ public final class FileSystemHelper {
 
     public FileObject findResource(String internalName) {
         return Exceptions.wrap(ExceptionHandler::handleException).get(() -> {
-            
-            FileObject fileObject = getClassFromJar(internalName + ".class");
+            String ext = internalName.endsWith(".class") ? "" : ".class";
+            FileObject fileObject = getClassFromJar(internalName + ext);
             if (isNull(fileObject)) {
-                fileObject = getClassIfOpenEditor(internalName + ".class");
+                fileObject = getClassIfOpenEditor(internalName + ext);
             }
+
+            if (isNull(fileObject) && nonNull(classpath)) {
+                fileObject = classpath.findResource(internalName+ext);
+            }
+
             return fileObject;
         });
 
