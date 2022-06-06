@@ -31,6 +31,7 @@ import org.benf.cfr.reader.util.output.ProgressDumper;
 import org.benf.cfr.reader.util.output.ProgressDumperNop;
 import org.benf.cfr.reader.util.output.StringStreamDumper;
 import org.benf.cfr.reader.util.output.SummaryDumper;
+import static org.openide.util.Exceptions.printStackTrace;
 
 /*
 * Class entirely copied from cfr.jar 
@@ -76,7 +77,12 @@ public class PluginDumperFactory implements DumperFactory {
 
     @Override
     public ExceptionDumper getExceptionDumper() {
-        return null;
+        return new ExceptionDumper() {
+            @Override
+            public void noteException(String path, String comment, Exception e) {
+                printStackTrace(e);
+            }
+        };
     }
 
     @Override

@@ -73,6 +73,7 @@ public final class DecompileAction implements ActionListener {
             wrap(ExceptionHandler::handleException).run(() -> {
                 Path newFile = Path.of(decompilerDir.toString(), file.getName().concat(".java"));
                 if (Files.exists(newFile)) {
+                    newFile.toFile().setWritable(true);
                     Files.delete(newFile);
                 }
                 Files.write(newFile, decompiled.getBytes());

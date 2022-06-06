@@ -24,12 +24,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.jar.JarOutputStream;
 import java.util.zip.ZipEntry;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import org.openide.filesystems.JarFileSystem;
 
 /**
  *
@@ -37,15 +38,17 @@ import org.openide.filesystems.JarFileSystem;
  */
 public class FileSystemHelperTest {
 
-    @TempDir
-    Path tempDir;
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Test
     public void test_extractName_when_class_file_is_opened_on_editor() throws IOException {
-        FileObject file = FileUtil.toFileObject(Files.createFile(tempDir.resolve("teste.java")).toFile());
-        file.setAttribute(CLASSFILE_BINARY_NAME, "teste");
+        Path tempDir = tempFolder.newFolder("temp").toPath();
 
-        String expResult = "teste";
+        FileObject file = FileUtil.toFileObject(Files.createFile(tempDir.resolve("test.java")).toFile());
+        file.setAttribute(CLASSFILE_BINARY_NAME, "test");
+
+        String expResult = "test";
         String result = FileSystemHelper.extractName(file);
 
         assertEquals(expResult, result);
@@ -53,9 +56,10 @@ public class FileSystemHelperTest {
 
     @Test
     public void test_extractName_when_class_file_is_on_a_simple_folder() throws IOException {
-        FileObject file = FileUtil.toFileObject(Files.createFile(tempDir.resolve("teste.java")).toFile());
+        Path tempDir = tempFolder.newFolder("temp").toPath();
+        FileObject file = FileUtil.toFileObject(Files.createFile(tempDir.resolve("test.class")).toFile());
 
-        String expResult = tempDir.toString() + File.separator + "teste";
+        String expResult = FileUtil.toFileObject(new File(tempDir.toFile() + File.separator + "test.class")).getPath();
         String result = FileSystemHelper.extractName(file);
 
         assertEquals(expResult, result);
@@ -63,31 +67,41 @@ public class FileSystemHelperTest {
 
     @Test
     public void test_extractName_when_class_file_is_inside_jar() throws IOException {
-        Path jar = tempDir.resolve("teste.jar");
+        Path tempDir = tempFolder.newFolder("temp").toPath();
+        Path jar = tempDir.resolve("test.jar");
         createJarFile(jar);
-        JarFileSystem jarFileSystem = new JarFileSystem(jar.toFile());
-        FileObject file = jarFileSystem.findResource("teste.class");
 
-        String expResult = "teste";
+        FileObject fileObject = FileUtil.getArchiveRoot(FileUtil.toFileObject(jar.toFile()));
+        FileObject file = fileObject.getFileSystem().findResource("test.class");
+
+        String expResult = "test.class";
         String result = FileSystemHelper.extractName(file);
-
         assertEquals(expResult, result);
+
     }
 
     @Test
     public void test_findResource_inside_jar() throws IOException {
-        Path jar = tempDir.resolve("teste.jar");
-        createJarFile(jar);        
-        FileSystemHelper instance = FileSystemHelper.of(new JarFileSystem(jar.toFile()).findResource("teste.class"));
-        
-        FileObject result = instance.findResource("teste.class");
+        Path tempDir = tempFolder.newFolder("temp").toPath();
+        Path jar = tempDir.resolve("test.jar");
+        createJarFile(jar);
+
+        FileObject fileObject = FileUtil.getArchiveRoot(FileUtil.toFileObject(jar.toFile()));
+        FileObject file = fileObject.getFileSystem().findResource("test.class");
+
+        FileSystemHelper instance = FileSystemHelper.of(file);
+
+        FileObject result = instance.findResource("test.class");
         assertNotNull(result);
     }
 
-    private void createJarFile(Path fileName) throws IOException {
-        try ( JarOutputStream stream = new JarOutputStream(new FileOutputStream(Files.createFile(fileName).toFile()))) {
-            stream.putNextEntry(new ZipEntry("teste.class"));
-            stream.flush();
+    private static void createJarFile(Path fileName) throws IOException {
+        if (!Files.exists(fileName)) {
+            File file = Files.createFile(fileName).toFile();
+            try ( JarOutputStream stream = new JarOutputStream(new FileOutputStream(file))) {
+                stream.putNextEntry(new ZipEntry("test.class"));
+                stream.finish();
+            }
         }
     }
 }

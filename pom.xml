@@ -17,8 +17,7 @@
                     <licenseName>GNU GENERAL PUBLIC LICENSE 3.0</licenseName>
                     <licenseFile>LICENSE</licenseFile>
                     <!--  Path of Netbeans instalation.
-        <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation>
-                    -->
+                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation> -->                    
                 </configuration>
             </plugin>
             <plugin>
@@ -64,26 +63,12 @@
                
         <!-- Junit -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.6.0</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.6.0</version>
-            <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.6.0</version>
-            <scope>test</scope>
-        </dependency>
-        
+                
         <!-- Netbeans modules -->
         <dependency>
             <groupId>org.netbeans.api</groupId>
