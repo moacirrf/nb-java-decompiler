@@ -18,12 +18,10 @@ package com.mrf.javadecompiler.filesystems;
 
 import com.machinezoo.noexception.Exceptions;
 import com.mrf.javadecompiler.exception.ExceptionHandler;
-import static java.io.File.separatorChar;
 import java.net.URL;
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 import org.netbeans.api.java.classpath.ClassPath;
-import org.netbeans.api.java.source.ClasspathInfo;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileStateInvalidException;
 import org.openide.filesystems.FileUtil;
@@ -57,11 +55,7 @@ public final class FileSystemHelper {
         if (nonNull(fileName)) {
             return String.valueOf(fileName);
         }
-        //when class is other places
-        if (isNull(file.getParent().getPath()) || file.getParent().getPath().isEmpty()) {
-            return file.getName();
-        }
-        return file.getParent().getPath() + separatorChar + file.getName();
+        return file.getPath();
     }
 
     private FileObject file;
@@ -96,6 +90,7 @@ public final class FileSystemHelper {
     }
 
     private FileObject getClassIfOpenEditor(String internalName) throws FileStateInvalidException {
+        // find jar path from attribute
         URL url = (URL) file.getAttribute(CLASSFILE_ROOT);
         if (nonNull(url)) {
             FileObject jarFile = FileUtil.toFileObject(FileUtil.archiveOrDirForURL(url));

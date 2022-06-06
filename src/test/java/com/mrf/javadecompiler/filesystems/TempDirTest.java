@@ -22,8 +22,9 @@ import java.nio.file.Files;
 import static java.nio.file.Files.createFile;
 import static java.nio.file.Files.createDirectory;
 import java.nio.file.Path;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import org.junit.Test;
 
 /**
  *
@@ -34,19 +35,18 @@ public class TempDirTest {
     @Test
     public void testGetTempDir() {
         Path tempDir = getTempDir();
-        Assertions.assertTrue(Files.exists(tempDir));
+        assertTrue(Files.exists(tempDir));
     }
 
     @Test
     public void testRemoveTempDir() throws IOException {
         Path tempDir = getTempDir();
-        createFile(tempDir.resolve("Test.class"));
-        createFile(createDirectory(tempDir
-                .resolve("folder"))
-                .resolve("OtheFile.class"));
-
+        Path testClass = tempDir.resolve("Test.class");
+        if(!Files.exists(testClass)){
+            createFile(testClass);
+        }
         TempDir.removeTempDir();
-        Assertions.assertFalse(Files.exists(tempDir));
+        assertFalse(Files.exists(tempDir));
     }
 
 }

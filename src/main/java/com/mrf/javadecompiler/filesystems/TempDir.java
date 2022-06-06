@@ -27,17 +27,21 @@ import java.nio.file.Paths;
 public final class TempDir {
 
     public static final String TEMP_DIR_PLUGIN = getProperty("java.io.tmpdir") + "/nb_java_decompiler";
-    
+
     /**
      * Return directory where decompiled classes will be created.
-     * 
-     * @return 
+     *
+     * @return
      */
     public static Path getTempDir() {
         Path path = Paths.get(TEMP_DIR_PLUGIN);
         if (!Files.exists(path)) {
             wrap(ExceptionHandler::handleException)
-                    .run(() -> Files.createDirectory(path));
+                    .run(() -> {
+                        if (!Files.exists(path)) {
+                            Files.createDirectory(path);
+                        }
+                    });
         }
         return path;
     }
@@ -45,14 +49,15 @@ public final class TempDir {
     public static void removeTempDir() {
         clearTempFolder(getTempDir());
     }
-    
+
     private static void clearTempFolder(Path path) {
         Exceptions.wrap(ExceptionHandler::handleException).run(() -> {
             if (Files.isDirectory(path) && Files.list(path).count() > 0) {
                 Files.list(path).forEach(it -> clearTempFolder(it));
             }
+            path.toFile().setWritable(true);
             Files.deleteIfExists(path);
         });
     }
-    
+
 }
