@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.moacirrf</groupId>
     <artifactId>nb-java-decompiler</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <packaging>nbm</packaging>
     <name>NB Java Decompiler</name>
     <url>https://github.com/moacirrf/nb-java-decompiler</url>
