@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.decompiler.cfr;
+package io.github.moacirrf.javadecompiler.cfr;
 
-import com.mrf.javadecompiler.decompiler.Decompiler;
+import io.github.moacirrf.javadecompiler.Decompiler;
 import static com.machinezoo.noexception.Exceptions.wrap;
-import com.mrf.javadecompiler.exception.ExceptionHandler;
-import com.mrf.javadecompiler.filesystems.FileSystemHelper;
+import io.github.moacirrf.javadecompiler.ExceptionHandler;
+import io.github.moacirrf.javadecompiler.files.FileSystemHelper;
 import java.util.Map;
 import org.benf.cfr.reader.Main;
 import org.benf.cfr.reader.apiunreleased.ClassFileSource2;

@@ -14,13 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.filesystems;
+package io.github.moacirrf.javadecompiler.files;
 
-import static com.mrf.javadecompiler.filesystems.TempDir.getTempDir;
+import static io.github.moacirrf.javadecompiler.files.TempDir.getTempDir;
 import java.io.IOException;
 import java.nio.file.Files;
 import static java.nio.file.Files.createFile;
-import static java.nio.file.Files.createDirectory;
 import java.nio.file.Path;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

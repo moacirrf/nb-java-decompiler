@@ -14,14 +14,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.decompiler;
+package io.github.moacirrf.javadecompiler;
 
+import io.github.moacirrf.javadecompiler.cfr.DecompilerClassImpl;
 
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
-public interface Decompiler<T,P> {
+public final class DecompilerFactory {
 
-    public T decompile(P input);
+    public static Decompiler create() {
+        return new DecompilerClassImpl();
+    }
+
+    private DecompilerFactory() {
+    }
 }

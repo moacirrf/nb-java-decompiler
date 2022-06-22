@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Moacir da Roza Flores <moacirrf@gmail.com>
+ * Copyright (C) 2022 moacirrf
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,21 +14,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.exception;
+package io.github.moacirrf.javadecompiler;
 
-import static org.openide.util.Exceptions.printStackTrace;
+import io.github.moacirrf.javadecompiler.files.TempDir;
 
-/**
- *
- * @author Moacir da Roza Flores <moacirrf@gmail.com>
- */
-public final class ExceptionHandler {
+import org.openide.modules.ModuleInstall;
 
-    public static RuntimeException handleException(Exception exception) {
-        printStackTrace(exception);
-        return new RuntimeException(exception);
+public class Installer extends ModuleInstall {
+
+    @Override
+    public boolean closing() {
+        TempDir.removeTempDir();
+        return super.closing();
     }
 
-    private ExceptionHandler() {
-    }
 }

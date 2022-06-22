@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.filesystems;
+package io.github.moacirrf.javadecompiler.files;
 
 import com.machinezoo.noexception.Exceptions;
 import static com.machinezoo.noexception.Exceptions.wrap;
-import com.mrf.javadecompiler.exception.ExceptionHandler;
+import io.github.moacirrf.javadecompiler.ExceptionHandler;
 import static java.lang.System.getProperty;
 import java.nio.file.Files;
 import java.nio.file.Path;

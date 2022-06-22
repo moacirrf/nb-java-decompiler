@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mrf.javadecompiler</groupId>
+    <groupId>io.github.moacirrf</groupId>
     <artifactId>nb-java-decompiler</artifactId>
     <version>1.0.0</version>
     <packaging>nbm</packaging>
+    <name>NB Java Decompiler</name>
+    <url>https://github.com/moacirrf/nb-java-decompiler</url>
+    <description>A Java Decompiler for Apache Netbeans.</description>
+    <developers>
+        <developer>
+            <id>moacirrf</id>
+            <name>Moacir da Roza Flores</name>
+            <email>moacirrf@gmail.com</email>
+            <url>https://github.com/moacirrf</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/moacirrf/nb-java-decompiler</connection>
+        <developerConnection>scm:git:https://github.com/project-url.git</developerConnection>
+        <url>https://github.com/moacirrf/nb-java-decompiler/tree/${project.scm.tag}</url>
+        <tag>master</tag>
+    </scm>
+    <licenses>
+        <license>
+            <name>GNU GENERAL PUBLIC LICENSE 3.0</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <distributionManagement>
+        <site>
+            <id>github</id>
+            <name>Maven Site Distribution</name>
+            <url>scm:git:https://github.com/moacirrf/nb-java-decompiler.git</url>
+        </site>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.netbeans.utilities</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
@@ -43,6 +93,20 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

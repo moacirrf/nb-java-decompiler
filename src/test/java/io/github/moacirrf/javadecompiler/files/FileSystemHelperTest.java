@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.filesystems;
+package io.github.moacirrf.javadecompiler.files;
 
-import static com.mrf.javadecompiler.filesystems.FileSystemHelper.CLASSFILE_BINARY_NAME;
+import static io.github.moacirrf.javadecompiler.files.FileSystemHelper.CLASSFILE_BINARY_NAME;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
