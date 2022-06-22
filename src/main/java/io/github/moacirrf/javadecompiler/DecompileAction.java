@@ -14,15 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.openide.action;
+package io.github.moacirrf.javadecompiler;
 
 import static com.machinezoo.noexception.Exceptions.wrap;
 import static java.util.Objects.nonNull;
-import com.mrf.javadecompiler.decompiler.Decompiler;
-import com.mrf.javadecompiler.decompiler.DecompilerFactory;
-import com.mrf.javadecompiler.exception.ExceptionHandler;
-import com.mrf.javadecompiler.filesystems.TempDir;
-import com.mrf.javadecompiler.validator.FileValidator;
+import io.github.moacirrf.javadecompiler.files.TempDir;
+import io.github.moacirrf.javadecompiler.validator.FileValidator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Files;
@@ -39,7 +36,7 @@ import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "Tools",
-        id = "com.mrf.javadecompiler.openide.DecompileAction"
+        id = "io.github.moacirrf.javadecompiler.DecompileAction"
 )
 @ActionRegistration(
         displayName = "#CTL_DecompileAction"

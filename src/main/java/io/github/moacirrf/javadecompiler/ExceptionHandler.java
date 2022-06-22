@@ -14,20 +14,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.decompiler;
+package io.github.moacirrf.javadecompiler;
 
-import com.mrf.javadecompiler.decompiler.cfr.DecompilerClassImpl;
+import static org.openide.util.Exceptions.printStackTrace;
 
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
-public final class DecompilerFactory {
+public final class ExceptionHandler {
 
-    public static Decompiler create() {
-        return new DecompilerClassImpl();
+    public static RuntimeException handleException(Exception exception) {
+        printStackTrace(exception);
+        return new RuntimeException(exception);
     }
 
-    private DecompilerFactory() {
+    private ExceptionHandler() {
     }
 }

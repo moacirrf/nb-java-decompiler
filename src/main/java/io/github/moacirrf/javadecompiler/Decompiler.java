@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 moacirrf
+ * Copyright (C) 2021 Moacir da Roza Flores <moacirrf@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,18 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.mrf.javadecompiler.openide;
+package io.github.moacirrf.javadecompiler;
 
-import com.mrf.javadecompiler.filesystems.TempDir;
 
-import org.openide.modules.ModuleInstall;
+/**
+ *
+ * @author Moacir da Roza Flores <moacirrf@gmail.com>
+ */
+public interface Decompiler<T,P> {
 
-public class Installer extends ModuleInstall {
-
-    @Override
-    public boolean closing() {
-        TempDir.removeTempDir();
-        return super.closing();
-    }
-
+    public T decompile(P input);
 }
