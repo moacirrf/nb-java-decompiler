@@ -5,7 +5,7 @@ Java Decompiler for Apache Netbeans uses [CFR - another java decompiler](https:/
 ## Description
 This a very simple plugin, with only basic features. If you want to help, contact-me or make a pull-request.
  
- - Apache Netbeans 13
+ - Apache Netbeans 13,14
  - JDK 11+
 
 ## Licenses
