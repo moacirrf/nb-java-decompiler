@@ -33,7 +33,6 @@ import org.openide.filesystems.FileUtil;
 public final class FileSystemHelper {
 
     public static final String CLASSFILE_BINARY_NAME = "classfile-binaryName";
-    public static final String CLASSFILE_SOURCE_FILE = "classfile-sourcefil";
     public static final String CLASSFILE_ROOT = "classfile-root";
 
     /**
