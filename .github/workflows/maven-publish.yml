@@ -14,4 +14,4 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
       - name: NBM
-        run: mvn clean test
+        run: mvn install
