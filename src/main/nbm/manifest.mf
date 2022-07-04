@@ -2,4 +2,4 @@ Manifest-Version: 1.0
 OpenIDE-Module-Localizing-Bundle: io/github/moacirrf/javadecompiler/Bundle.properties
 OpenIDE-Module-Requires: org.openide.windows.WindowManager
 OpenIDE-Module-Install: io/github/moacirrf/javadecompiler/Installer.class
-
+OpenIDE-Module-Java-Dependencies: Java > 11
