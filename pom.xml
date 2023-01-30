@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.moacirrf</groupId>
     <artifactId>nb-java-decompiler</artifactId>
-    <version>1.0.2</version>
+    <version>2.0</version>
     <packaging>nbm</packaging>
     <name>NB Java Decompiler</name>
     <url>https://github.com/moacirrf/nb-java-decompiler</url>
@@ -20,7 +20,7 @@
         <connection>scm:git:https://github.com/moacirrf/nb-java-decompiler</connection>
         <developerConnection>scm:git:https://github.com/moacirrf/nb-java-decompiler</developerConnection>
         <url>https://github.com/moacirrf/nb-java-decompiler/tree/${project.scm.tag}</url>
-        <tag>v1.0.2</tag>
+        <tag>v2.0</tag>
     </scm>
     <licenses>
         <license>
@@ -67,7 +67,10 @@
                     <licenseName>GNU GENERAL PUBLIC LICENSE 3.0</licenseName>
                     <licenseFile>LICENSE</licenseFile>
                     <!--  Path of Netbeans instalation.
-                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation> -->                    
+                    <netbeansInstallation>${netbeansInstalationPath}</netbeansInstallation> -->
+                    <keystore>${basedir}/keystore.jks</keystore>
+                    <keystorepassword>${keypass}</keystorepassword>
+                    <keystorealias>nb-java-decompiler-key</keystorealias>                                                    
                 </configuration>
             </plugin>
             <plugin>
@@ -193,6 +196,14 @@
             <artifactId>org-netbeans-api-java-classpath</artifactId>
             <version>RELEASE130</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>updater</artifactId>
+            <version>RELEASE130</version>
+            <type>jar</type>
+        </dependency>
+
     </dependencies>
     
     <repositories>
