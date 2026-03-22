@@ -34,50 +34,53 @@ import org.openide.filesystems.FileObject;
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
 public final class DecompilerClassImpl implements Decompiler<String, FileObject> {
-
-    public static final String HEADER_COMMENT = "// Source code recreated by Apache Netbeans (NB Java Decompiler) \n";
+    private static final String VERSION = "pycharm~252.27397.106";
+    public static final String HEADER_COMMENT = "// Source code recreated by Apache Netbeans (NB Java Decompiler) \n"
+	    + "/*\n"
+	    + " * Decompiled with Fernflower " + VERSION + ".\n"
+	    + " */\n";
 
     private final Map<String, Object> options;
 
     public DecompilerClassImpl() {
-        options = new HashMap<>();
-        options.put("rbr", "1");
-        options.put("rsy", "1");
-        options.put("din", "1");
-        options.put("dc4", "1");
-        options.put("das", "1");
-        options.put("hes", "1");
-        options.put("hdc", "1");
-        options.put("dgs", "1");
-        options.put("rer", "1");
-        options.put("den", "1");
-        options.put("udv", "1");
-        options.put("ump", "1");
-        options.put("ner", "1");
-        options.put("ind", "    ");
-        options.put("nls", "1");
-        options.put("log", "WARN");
+	options = new HashMap<>();
+	options.put("rbr", "1");
+	options.put("rsy", "1");
+	options.put("din", "1");
+	options.put("dc4", "1");
+	options.put("das", "1");
+	options.put("hes", "1");
+	options.put("hdc", "1");
+	options.put("dgs", "1");
+	options.put("rer", "1");
+	options.put("den", "1");
+	options.put("udv", "1");
+	options.put("ump", "1");
+	options.put("ner", "1");
+	options.put("ind", "    ");
+	options.put("nls", "1");
+	options.put("log", "WARN");
     }
 
     @Override
     public String decompile(FileObject file) {
-        return wrap(ExceptionHandler::handleException).get(() -> decompileInternal(file));
+	return wrap(ExceptionHandler::handleException).get(() -> decompileInternal(file));
     }
 
     private String decompileInternal(FileObject file) throws Exception {
-        String className = FileSystemHelper.extractName(file);
-        FileSystemHelper helper = FileSystemHelper.of(file);
+	String className = FileSystemHelper.extractName(file);
+	FileSystemHelper helper = FileSystemHelper.of(file);
 
-        IFernflowerLogger logger = new PrintStreamLogger(System.err);
-        IBytecodeProvider provider = new NetbeansBytecodeProviderImpl(helper);
-        IResultSaver saver = new StringResultSaver();
+	IFernflowerLogger logger = new PrintStreamLogger(System.err);
+	IBytecodeProvider provider = new NetbeansBytecodeProviderImpl(helper, className);
+	IResultSaver saver = new StringResultSaver();
 
-        BaseDecompiler decompiler = new BaseDecompiler(provider, saver, options, logger);
-        decompiler.addSource(new java.io.File(className));
-        decompiler.decompileContext();
+	BaseDecompiler decompiler = new BaseDecompiler(provider, saver, options, logger);
+	decompiler.addSource(new java.io.File(className));
+	decompiler.decompileContext();
 
-        String result = ((StringResultSaver) saver).getResult();
-        return HEADER_COMMENT + (result != null ? result : "");
+	String result = ((StringResultSaver) saver).getResult();
+	return HEADER_COMMENT + (result != null ? result : "");
     }
 
 }

@@ -22,6 +22,7 @@ import io.github.moacirrf.javadecompiler.files.TempDir;
 import io.github.moacirrf.javadecompiler.validator.FileValidator;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.netbeans.api.java.source.UiUtils;
@@ -32,54 +33,64 @@ import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
+import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
-        category = "Tools",
-        id = "io.github.moacirrf.javadecompiler.DecompileAction"
+	category = "Tools",
+	id = "io.github.moacirrf.javadecompiler.DecompileFernflowerAction"
 )
 @ActionRegistration(
-        displayName = "#CTL_DecompileAction"
+	displayName = "#CTL_DecompileWithFernflower"
 )
-@ActionReferences(value = {
-    @ActionReference(path = "Editors/Popup", position = 1425),
-    @ActionReference(path = "UI/ToolActions", position = 2950)
+@ActionReferences({
+    @ActionReference(path = "Editors/Popup", position = 100),
+    @ActionReference(path = "UI/ToolActions", position = 100)
 })
-@Messages("CTL_DecompileAction=Decompile")
-public final class DecompileAction implements ActionListener {
+@Messages({
+    "CTL_DecompileWithFernflower=Decompile with Fernflower"
+})
+public final class DecompileFernflowerAction implements ActionListener {
+
+    private static final String DECOMPILER = "fernflower";
 
     private final DataObject context;
     private final Path decompilerDir;
 
-    public DecompileAction(DataObject context) {
-        this.context = context;
-        this.decompilerDir = TempDir.getTempDir();
+    public DecompileFernflowerAction(DataObject context) {
+	this.context = context;
+	this.decompilerDir = Path.of(TempDir.getTempDir().toString(), DECOMPILER);
+	wrap(ExceptionHandler::handleException).run(() -> {
+	    if (!Files.exists(decompilerDir)) {
+		Files.createDirectory(decompilerDir);
+	    }
+	});
     }
 
     @Override
     public void actionPerformed(ActionEvent ev) {
-        FileObject file = context.getPrimaryFile();
-        if (FileValidator.validate(file)) {
-            Decompiler<String, FileObject> decompiler = DecompilerFactory.create();
-            writeToNewClass(file, decompiler.decompile(file));
-        }
+	FileObject file = context.getPrimaryFile();
+	if (FileValidator.validate(file)) {
+	    Decompiler<String, FileObject> decompiler = DecompilerFactory.create(DecompilerFactory.DecompilerType.FERNFLOWER);
+	    writeToNewClass(file, decompiler.decompile(file));
+	}
     }
 
     private void writeToNewClass(FileObject file, String decompiled) {
-        if (nonNull(decompiled) && !decompiled.isEmpty()) {
-            wrap(ExceptionHandler::handleException).run(() -> {
-                Path newFile = Path.of(decompilerDir.toString(), file.getName().concat(".java"));
-                if (Files.exists(newFile)) {
-                    newFile.toFile().setWritable(true);
-                    Files.delete(newFile);
-                }
-                Files.write(newFile, decompiled.getBytes());
-                newFile.toFile().setReadOnly();
+	if (nonNull(decompiled) && !decompiled.isEmpty()) {
+	    wrap(ExceptionHandler::handleException).run(() -> {
+		Path newFile = Path.of(decompilerDir.toString(), file.getName().concat(".java"));
+		if (Files.exists(newFile)) {
+		    newFile.toFile().setWritable(true);
+		    Files.delete(newFile);
+		}
+		Files.write(newFile, decompiled.getBytes());
+		newFile.toFile().setReadOnly();
 
-                FileObject newFileObject = FileUtil.createData(newFile.toFile());
-                newFileObject.setAttribute("disable-java-errors", true);
-                UiUtils.open(newFileObject, 1);
-            });
-        }
+		FileObject newFileObject = FileUtil.createData(newFile.toFile());
+		newFileObject.setAttribute("disable-java-errors", true);
+		UiUtils.open(newFileObject, 1);
+	    });
+	}
     }
 }

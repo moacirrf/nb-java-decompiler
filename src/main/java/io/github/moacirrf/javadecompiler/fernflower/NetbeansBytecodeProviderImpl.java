@@ -28,19 +28,27 @@ import org.openide.filesystems.FileObject;
 public class NetbeansBytecodeProviderImpl implements IBytecodeProvider {
 
     private final FileSystemHelper helper;
+    private String className;
 
-    public NetbeansBytecodeProviderImpl(FileSystemHelper helper) {
-        this.helper = helper;
+    public NetbeansBytecodeProviderImpl(FileSystemHelper helper, String className) {
+	this.helper = helper;
+	this.className = className;
     }
 
     @Override
     public byte[] getBytecode(String externalPath, String internalPath) throws IOException {
-        FileObject fileObj = helper.findResource(internalPath);
-        if (fileObj == null) {
-            return null;
-        }
+	String path = externalPath;
 
-        return fileObj.asBytes();
+	if (path == null || path.isBlank()) {
+	    path = internalPath;
+	}
+
+	FileObject fileObj = helper.findResource(className);
+	if (fileObj == null) {
+	    return null;
+	}
+
+	return fileObj.asBytes();
     }
 
 }
