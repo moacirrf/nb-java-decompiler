@@ -1,14 +1,17 @@
 package io.github.moacirrf.javadecompiler;
 
 import static com.machinezoo.noexception.Exceptions.wrap;
+
 import static java.util.Objects.nonNull;
+
 import io.github.moacirrf.javadecompiler.files.TempDir;
 import io.github.moacirrf.javadecompiler.validator.FileValidator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import org.netbeans.api.java.source.UiUtils;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
@@ -17,7 +20,6 @@ import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
@@ -25,13 +27,14 @@ import org.openide.util.NbBundle.Messages;
 	id = "io.github.moacirrf.javadecompiler.DecompileCfrAction"
 )
 @ActionRegistration(
-	displayName = "#CTL_DecompileWithCFR"
+	displayName = "#CTL_DecompileWithCFR",
+	iconInMenu = false
 )
 @ActionReferences({
-    @ActionReference(path = "Editors/Popup", position = 200),
-    @ActionReference(path = "UI/ToolActions", position = 200)
+    @ActionReference(path = "Editors/Popup/Decompile"),
+    @ActionReference(path = "UI/ToolActions/Decompile", position = 1)
 })
-@Messages("CTL_DecompileWithCFR=Decompile with CFR")
+@Messages("CTL_DecompileWithCFR=Decompile With CFR")
 public final class DecompileCfrAction implements ActionListener {
 
     private static final String DECOMPILER = "cfr";

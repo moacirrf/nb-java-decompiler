@@ -76,6 +76,9 @@ public final class DecompilerClassImpl implements Decompiler<String, FileObject>
 	IResultSaver saver = new StringResultSaver();
 
 	BaseDecompiler decompiler = new BaseDecompiler(provider, saver, options, logger);
+	if (!className.endsWith(".class")) {
+	    className = className + ".class";
+	}
 	decompiler.addSource(new java.io.File(className));
 	decompiler.decompileContext();
 

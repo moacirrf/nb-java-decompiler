@@ -17,14 +17,17 @@
 package io.github.moacirrf.javadecompiler;
 
 import static com.machinezoo.noexception.Exceptions.wrap;
+
 import static java.util.Objects.nonNull;
+
 import io.github.moacirrf.javadecompiler.files.TempDir;
 import io.github.moacirrf.javadecompiler.validator.FileValidator;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
 import org.netbeans.api.java.source.UiUtils;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
@@ -33,7 +36,6 @@ import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import org.openide.util.Exceptions;
 import org.openide.util.NbBundle.Messages;
 
 @ActionID(
@@ -41,14 +43,15 @@ import org.openide.util.NbBundle.Messages;
 	id = "io.github.moacirrf.javadecompiler.DecompileFernflowerAction"
 )
 @ActionRegistration(
-	displayName = "#CTL_DecompileWithFernflower"
+	displayName = "#CTL_DecompileWithFernflower",
+	iconInMenu = false
 )
 @ActionReferences({
-    @ActionReference(path = "Editors/Popup", position = 100),
-    @ActionReference(path = "UI/ToolActions", position = 100)
+    @ActionReference(path = "Editors/Popup/Decompile"),
+    @ActionReference(path = "UI/ToolActions/Decompile", position = 2)
 })
 @Messages({
-    "CTL_DecompileWithFernflower=Decompile with Fernflower"
+    "CTL_DecompileWithFernflower=Decompile With Fernflower"
 })
 public final class DecompileFernflowerAction implements ActionListener {
 
