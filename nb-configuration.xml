@@ -14,5 +14,38 @@ That way multiple projects can share the same settings (useful for formatting ru
 Any value defined here will override the pom.xml file value but is only applicable to the current project.
 -->
         <netbeans.hint.license>gpl30</netbeans.hint.license>
+        <netbeans.hint.jdkPlatform>JDK_17.0.8.1-tem__SDKMAN_</netbeans.hint.jdkPlatform>
+        <org-netbeans-modules-javascript2-requirejs.enabled>true</org-netbeans-modules-javascript2-requirejs.enabled>
+        <org-netbeans-modules-editor-indent.text.x-toml.CodeStyle.project.indent-shift-width>2</org-netbeans-modules-editor-indent.text.x-toml.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-toml.CodeStyle.project.spaces-per-tab>2</org-netbeans-modules-editor-indent.text.x-toml.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.tab-size>4</org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.expand-tabs>false</org-netbeans-modules-editor-indent.text.x-go.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.text.x-antlr3.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.text.x-antlr3.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-yaml.CodeStyle.project.indent-shift-width>2</org-netbeans-modules-editor-indent.text.x-yaml.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-antlr4.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.text.x-antlr4.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-line-wrap>chars</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-line-wrap>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.spaces-per-tab>4</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.enable-indent>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.enable-indent>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>80</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.expand-tabs>false</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.text.html.CodeStyle.project.indent-shift-width>8</org-netbeans-modules-editor-indent.text.html.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.text.html.CodeStyle.project.spaces-per-tab>8</org-netbeans-modules-editor-indent.text.html.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.text.html.CodeStyle.project.expand-tabs>false</org-netbeans-modules-editor-indent.text.html.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.text-line-wrap>chars</org-netbeans-modules-editor-indent.CodeStyle.project.text-line-wrap>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>4</org-netbeans-modules-editor-indent.CodeStyle.project.indent-shift-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>4</org-netbeans-modules-editor-indent.CodeStyle.project.spaces-per-tab>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>8</org-netbeans-modules-editor-indent.CodeStyle.project.tab-size>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>80</org-netbeans-modules-editor-indent.CodeStyle.project.text-limit-width>
+        <org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>true</org-netbeans-modules-editor-indent.CodeStyle.project.expand-tabs>
+        <org-netbeans-modules-editor-indent.CodeStyle.usedProfile>project</org-netbeans-modules-editor-indent.CodeStyle.usedProfile>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.importGroupsOrder>java;javax;org;com;</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.importGroupsOrder>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.countForUsingStarImport>999</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.countForUsingStarImport>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.countForUsingStaticStarImport>999</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.countForUsingStaticStarImport>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.allowConvertToStaticStarImport>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.allowConvertToStaticStarImport>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.allowConvertToStarImport>true</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.allowConvertToStarImport>
+        <org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.classMemberInsertionPoint>CARET_LOCATION</org-netbeans-modules-editor-indent.text.x-java.CodeStyle.project.classMemberInsertionPoint>
     </properties>
 </project-shared-configuration>

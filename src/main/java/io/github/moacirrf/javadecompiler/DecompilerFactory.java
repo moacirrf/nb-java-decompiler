@@ -16,16 +16,53 @@
  */
 package io.github.moacirrf.javadecompiler;
 
-import io.github.moacirrf.javadecompiler.cfr.DecompilerClassImpl;
-
 /**
  *
  * @author Moacir da Roza Flores <moacirrf@gmail.com>
  */
 public final class DecompilerFactory {
 
+    public enum DecompilerType {
+        CFR,
+        FERNFLOWER
+    }
+
+    private static DecompilerType defaultType = DecompilerType.CFR;
+
+    /**
+     * Create a decompiler using the default type (CFR)
+     * @return Decompiler instance
+     */
     public static Decompiler create() {
-        return new DecompilerClassImpl();
+        return create(defaultType);
+    }
+
+    /**
+     * Create a decompiler of the specified type
+     * @param type The type of decompiler to create
+     * @return Decompiler instance
+     */
+    public static Decompiler create(DecompilerType type) {
+        if (type == DecompilerType.FERNFLOWER) {
+            return new io.github.moacirrf.javadecompiler.fernflower.DecompilerClassImpl();
+        }
+        return new io.github.moacirrf.javadecompiler.cfr.DecompilerClassImpl();
+    }
+
+    /**
+     * Set the default decompiler type to use
+     * @param type The default type
+     */
+    public static void setDefaultType(DecompilerType type) {
+        defaultType = type;
+    }
+
+    /**
+     * Get the current default decompiler type
+     * @return The default type
+     */
+    public static DecompilerType getDefaultType() {
+        return defaultType;
     }
 
     private DecompilerFactory() {

@@ -1,16 +1,18 @@
 Java Decompiler for Netbeans ![master](https://github.com/moacirrf/nb-java-decompiler/actions/workflows/maven-publish.yml/badge.svg)
 =====================================
-Java Decompiler for Apache Netbeans uses [CFR - another java decompiler](https://www.benf.org/other/cfr/).
+Java Decompiler for Apache Netbeans supports two engines: **CFR** and **Fernflower**.  A "Decompile" menu contains both options, and the editor popup/toolbar follow suit.
 
 ## Description
-This a very simple plugin, with only basic features. If you want to help, contact-me or make a pull-request.
- 
- - Apache Netbeans 16,17
- - JDK 11+
+This is a very simple plugin, with only basic features. The latest release adds Fernflower alongside CFR; you can choose the engine from a submenu.
+Contributions are welcome via PRs or issues.
+
+ - Apache Netbeans 17+
+ - JDK 17+
 
 ## Licenses
  - NB Java Decompiler - GNU General Public License 3.0
- - CFR - another java decompiler - MIT license
+ - CFR – another java decompiler – MIT license
+ - Fernflower – Apache License 2.0 (source code bundled with plugin)
  
 ## Screenshots
 
