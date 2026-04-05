@@ -16,5 +16,4 @@ Contributions are welcome via PRs or issues.
  
 ## Screenshots
 
-<img src="https://user-images.githubusercontent.com/950706/172032392-3a52cbbe-b55f-4784-a1cb-d259a0df02ea.png" width="50%" /><img src="https://user-images.githubusercontent.com/950706/172032681-edfbe954-a11a-4594-a5f1-99f37293a16c.png" width="49.5%"/>
-<img src="https://user-images.githubusercontent.com/950706/172033148-4d7060f1-4370-4940-b3c8-cf1e45b7ba58.png" />
+<img width="830" height="830" alt="decompiler" src="https://github.com/user-attachments/assets/c742bc76-30e2-4b00-a3a2-e02c5ecb6220" />
