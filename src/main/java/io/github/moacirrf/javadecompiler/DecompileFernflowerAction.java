@@ -31,12 +31,9 @@ import java.nio.file.Path;
 import org.netbeans.api.java.source.UiUtils;
 import org.openide.loaders.DataObject;
 import org.openide.awt.ActionID;
-import org.openide.awt.ActionReference;
-import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
-import org.openide.util.NbBundle.Messages;
 
 @ActionID(
 	category = "Tools",
@@ -46,13 +43,6 @@ import org.openide.util.NbBundle.Messages;
 	displayName = "#CTL_DecompileWithFernflower",
 	iconInMenu = false
 )
-@ActionReferences({
-    @ActionReference(path = "Editors/Popup/Decompile"),
-    @ActionReference(path = "UI/ToolActions/Decompile", position = 2)
-})
-@Messages({
-    "CTL_DecompileWithFernflower=Decompile With Fernflower"
-})
 public final class DecompileFernflowerAction implements ActionListener {
 
     private static final String DECOMPILER = "fernflower";
