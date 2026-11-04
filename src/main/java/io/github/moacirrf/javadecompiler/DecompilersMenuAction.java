@@ -17,14 +17,18 @@
 package io.github.moacirrf.javadecompiler;
 
 import io.github.moacirrf.javadecompiler.options.DecompilerSettings;
+import io.github.moacirrf.javadecompiler.validator.FileValidator;
 
 import java.awt.event.ActionEvent;
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.JComponent;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.event.PopupMenuEvent;
@@ -35,7 +39,9 @@ import org.openide.awt.ActionReference;
 import org.openide.awt.ActionReferences;
 import org.openide.awt.ActionRegistration;
 import org.openide.awt.Actions;
+import org.openide.awt.DynamicMenuContent;
 import org.openide.filesystems.FileUtil;
+import org.openide.loaders.DataObject;
 import org.openide.util.ContextAwareAction;
 import org.openide.util.Lookup;
 import org.openide.util.NbBundle;
@@ -115,13 +121,24 @@ public final class DecompilersMenuAction extends AbstractAction implements Conte
 
     /**
      * Builds the submenu items of the decompilers enabled in the options,
-     * considering only the actions enabled in the given lookup context.
+     * considering only the actions enabled in the given lookup context. The
+     * submenu is empty (and hidden) when the context is not a decompilable
+     * file: only class files, and java files generated on the netbeans gensrc
+     * cache folder, are accepted.
      */
     static List<JMenuItem> buildSubmenuItems(Lookup lookup) {
 	List<JMenuItem> items = new ArrayList<>();
+	if (isNull(lookup) || !isDecompilableContext(lookup)) {
+	    return items;
+	}
 	buildItem(items, lookup, DecompilerSettings.isCfrEnabled(), DecompilerSettings.CFR_ACTION_ID);
 	buildItem(items, lookup, DecompilerSettings.isFernflowerEnabled(), DecompilerSettings.FERNFLOWER_ACTION_ID);
 	return items;
+    }
+
+    private static boolean isDecompilableContext(Lookup lookup) {
+	DataObject dataObject = lookup.lookup(DataObject.class);
+	return nonNull(dataObject) && FileValidator.isDecompilable(dataObject.getPrimaryFile());
     }
 
     private static void buildItem(List<JMenuItem> items, Lookup lookup, boolean enabled, String actionId) {
@@ -146,9 +163,10 @@ public final class DecompilersMenuAction extends AbstractAction implements Conte
 
     /**
      * Rebuilds its children every time its own popup menu becomes visible,
-     * so the menu always reflects the current options and context.
+     * so the menu always reflects the current options and context. When there
+     * are no items to show the menu hides itself from the parent popup.
      */
-    private static final class DecompilersMenu extends JMenu implements PopupMenuListener {
+    private static final class DecompilersMenu extends JMenu implements DynamicMenuContent, PopupMenuListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -161,12 +179,23 @@ public final class DecompilersMenuAction extends AbstractAction implements Conte
 	}
 
 	@Override
-	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+	public JComponent[] getMenuPresenters() {
+	    return synchMenuPresenters(new JComponent[0]);
+	}
+
+	@Override
+	public JComponent[] synchMenuPresenters(JComponent[] items) {
 	    removeAll();
 	    Lookup lookup = lookupSupplier.get();
-	    if (lookup != null) {
+	    if (nonNull(lookup)) {
 		buildSubmenuItems(lookup).forEach(this::add);
 	    }
+	    return getMenuComponentCount() == 0 ? new JComponent[0] : new JComponent[]{this};
+	}
+
+	@Override
+	public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+	    synchMenuPresenters(new JComponent[0]);
 	}
 
 	@Override
